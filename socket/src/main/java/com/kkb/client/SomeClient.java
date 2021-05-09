@@ -27,6 +27,8 @@ public class SomeClient {
             // 指定一个group
             // server端指定的是两个group
             bootstrap.group(group)
+                    // 指定客户端端口
+                    .localAddress(8011)
                     // 指定要创建的channel的类型
                     // server端指定的是NioServerSocketChannel
                     .channel(NioSocketChannel.class)
@@ -42,7 +44,7 @@ public class SomeClient {
                             // 添加解码器
                             pipeline.addLast(new StringDecoder());
                             // 添加自定义的处理器
-                            pipeline.addLast(null);
+                            pipeline.addLast(new SomeClientHandler());
                         }
                     });
 
